@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title> My First Django App </title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'interests/css/materialize.css' %}">
+        <script type = 'text/javascript' src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type = 'text/javascript' src = "{% static 'interests/js/materialize.js' %}"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="pink-text">Hello</h1>
+            <div class="row">
+                {% if users %}
+                    {% for user in users %}
+                        <div class="col s12 m6">
+                            <div class="card hoverable">
+                                <div class="card-content">
+
+                                    <span class="card-title black-text">{{ forloop.counter }}. Name: <a href="/interests/user/{{user.id}}">{{ user.first_name }} {{user.last_name}}</a></span>
+                                    <p>Interests:
+                                    {% for interest in user.interests.all %}
+                                        {% if not forloop.first %}, {% endif %}
+                                        <span>{{ interest.name }}</span>
+                                    {% endfor %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </body>
+</html>
